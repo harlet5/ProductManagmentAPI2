@@ -1,0 +1,26 @@
+@ProductManagmentAPI_HostAddress = http://localhost:5226
+
+POST {{ProductManagmentAPI_HostAddress}}/api/product/AddProduct
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "very wrong Apples",
+  "productGroupId": 555,
+  "price": 200,
+  "storeIds": []
+}
+
+###
+
+GET {{ProductManagmentAPI_HostAddress}}/api/product
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET {{ProductManagmentAPI_HostAddress}}/api/product/GetProductGroupTree
+Accept: application/json
+Content-Type: application/json
+
+
