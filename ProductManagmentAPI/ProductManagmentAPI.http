@@ -5,15 +5,16 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "very wrong Apples",
-  "productGroupId": 555,
+  "name": "fsdfdsfds wrong Apples",
+  "productGroupId": 2,
   "price": 200,
-  "storeIds": []
+  "vat": 10,
+  "storeIds": [1, 2]
 }
 
 ###
 
-GET {{ProductManagmentAPI_HostAddress}}/api/product
+GET {{ProductManagmentAPI_HostAddress}}/api/product/2
 Accept: application/json
 Content-Type: application/json
 

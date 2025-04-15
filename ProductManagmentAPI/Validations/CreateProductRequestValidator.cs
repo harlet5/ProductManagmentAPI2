@@ -21,13 +21,24 @@ public class CreateProductRequestValidator : AbstractValidator<CreateProductRequ
             (x.Price != null && x.VAT != null) ||
             (x.PriceWithVAT != null && x.VAT != null))
             .WithMessage("At least two of Price, PriceWithVAT, or VAT must be provided.");
-
+        
         RuleFor(x => x).Must(x =>
-            x.Price * x.VAT / 100 == x.PriceWithVAT)
+            (x.Price != null && x.PriceWithVAT != null && x.VAT != null) &&
+            (x.Price + (x.Price * (x.VAT / 100)) == x.PriceWithVAT))
             .WithMessage("VAT calculation error: PriceWithVAT ≠ Price + (VAT * Price) / 100");
+
+        RuleFor(x => x.StoreIds)
+            .Must(storeIds => storeIds == null || storeIds.All(BeValidStoreId))
+            .WithMessage("One or more specified StoreIds do not exist");
+
     }
     private bool BeAValidProductGroupId(int productGroupId)
     {
         return _dbContext.ProductGroups.Any(pg => pg.Id == productGroupId);
+    }
+
+    private bool BeValidStoreId(int storeId)
+    {
+        return _dbContext.Stores.Any(st => st.Id == storeId);
     }
 }

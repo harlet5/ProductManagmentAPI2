@@ -1,4 +1,4 @@
-﻿namespace ProductManagmentAPI.Models;
+﻿namespace ProductManagmentAPI.Contracts;
 
 public class ProductGroupDto
 {

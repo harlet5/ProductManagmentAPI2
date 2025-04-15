@@ -12,7 +12,7 @@ public class CreateProductRequest
     public float? Price { get; init; } = null;
     public float? PriceWithVAT { get; init; } = null;
     public float? VAT { get; init; } = null;
-    public List<int>? StoreIds { get; init; }
+    public List<int>? StoreIds { get; init; } = [];
 
     public CreateProductRequest(string name, int productGroupId, float? price, float? priceWithVAT, float? vat, List<int>? storeIds)
     {

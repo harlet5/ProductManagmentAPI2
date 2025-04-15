@@ -26,12 +26,8 @@ public class ApiDB : DbContext
             .WithMany(pg => pg.Products)
             .HasForeignKey(p => p.ProductGroupId);
 
-        modelBuilder.Entity<Product>()
-            .HasMany(p => p.Stores)
-            .WithMany(s => s.Products)
-            .UsingEntity(j => j.ToTable("ProductStore"));
-
         modelBuilder.Entity<ProductStore>()
+            .ToTable("ProductStores")
             .HasKey(ps => new { ps.ProductId, ps.StoreId });
 
         modelBuilder.Entity<ProductStore>()

@@ -23,12 +23,26 @@ public class ProductController(IProductService productService) : ControllerBase
             PriceWithVAT = request.PriceWithVAT!.Value,
             VAT = request.VAT!.Value
         };
-        var result = await _productService.CreateProduct(product);
-        if (result == 0)
+        Product? createdProduct = await _productService.CreateProduct(product, request.StoreIds);
+
+        if (createdProduct == null)
         {
             return Problem();
         }
-        return Ok();
+        var responseDto = new CreateProductResponse(
+            Id: createdProduct.Id,
+            Name: createdProduct.Name,
+            ProductGroupId: createdProduct.ProductGroupId,
+            DateAdded: createdProduct.DateAdded,
+            Price: createdProduct.Price,
+            PriceWithVAT: createdProduct.PriceWithVAT,
+            VAT: createdProduct.VAT,
+            StoreIds: createdProduct.ProductStores?.Select(ps => ps.StoreId).ToList()
+        );
+        return CreatedAtAction(
+            nameof(GetProduct),
+            new { id = createdProduct.Id },
+            responseDto); 
     }
 
     // GET: api/GetProduct or api/GetProduct/{id}

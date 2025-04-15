@@ -1,4 +1,6 @@
-﻿namespace ProductManagmentAPI.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace ProductManagmentAPI.Models;
 
 public class Product
 {
@@ -11,6 +13,5 @@ public class Product
     public float PriceWithVAT { get; set; }
     public float VAT { get; set; }
 
-    public List<Store> Stores { get; set; } = [];
     public List<ProductStore> ProductStores { get; set; } = [];
 }
